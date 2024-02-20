@@ -81,7 +81,7 @@ const Page = () => {
               animate={{ scale: 1.0 + scale * 0.3 }}
               className="text-center w-full"
             >
-              Will You Be My Valentine?
+              Me amas day?
             </motion.span>
             <div className="flex flex-row items-center">
               <Button
