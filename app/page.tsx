@@ -64,7 +64,7 @@ const Page = () => {
           <>
             <Image src={kiss_bear} alt="bear-kiss" height={400} width={400} />
             <span className="font-semibold">
-              Thank you for accepting my request! I will cherish you forever!
+              mas te vale! por que yo te amare para siempre!
             </span>
           </>
         )}
