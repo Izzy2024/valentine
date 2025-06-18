@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import CustomCursor from "./components/CustomCursor"; // Import CustomCursor
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,9 +15,21 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const showCustomCursor = true; // Set to false to easily disable
+
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      {showCustomCursor && (
+        <style jsx global>{`
+          body, a, button {
+            cursor: none !important; /* Ensure default cursor is hidden */
+          }
+        `}</style>
+      )}
+      <body className={inter.className}>
+        {showCustomCursor && <CustomCursor />}
+        {children}
+      </body>
     </html>
   );
 }

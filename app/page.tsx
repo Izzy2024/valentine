@@ -1,151 +1,80 @@
-"use client";
+"use client"; // Required for useState and useEffect
 
-import React, { useState } from "react";
-import Button from "./Button";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import kiss_bear from "../public/bear-kiss-bear-kisses.gif";
-import happy_bear from "../public/bear-happy.gif";
-import { saveToDb } from "./utils";
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion'; // Import framer-motion
+import HeroSection from './components/HeroSection';
+import NovedadesSection from './components/NovedadesSection';
+import OfertasSection from './components/OfertasSection';
+import BusquedaFiltrosSection from './components/BusquedaFiltrosSection';
+// import ComunidadSection from './components/ComunidadSection'; // Original static import
+import dynamic from 'next/dynamic'; // Import dynamic
 
-const Page = () => {
-  const [scale, setScale] = useState(1.0);
-  const [reqIndex, setReqIndex] = useState(0);
-  const [view, setView] = useState(false);
-  const [modalOpen, setModalOpen] = useState(true);
-  const [value, setValue] = useState("");
+// Dynamically import ComunidadSection
+const ComunidadSectionDynamic = dynamic(() => import('./components/ComunidadSection'), {
+  ssr: false, // Optional: disable server-side rendering for this component if it's client-heavy
+  loading: () => (
+    <div className="flex items-center justify-center h-64 bg-gray-800 text-white">
+      <p className="text-xl">Cargando Comunidad...</p>
+    </div>
+  ),
+});
 
-  const handleIncrease = () => {
-    setReqIndex(reqIndex + 1);
-    setScale(scale * 1.1);
-  };
-  const handleShow = () => {
-    setView(true);
-    saveToDb(value, reqIndex);
-  };
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
-  };
+export default function Page() {
+  const [isLoading, setIsLoading] = useState(true);
 
-  const handleSubmitClick = () => {
-    if (value.length > 0) {
-      setModalOpen(false);
-    }
-  };
+  useEffect(() => {
+    // Simulate loading time
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500); // 1.5 seconds
+
+    return () => clearTimeout(timer); // Cleanup timer
+  }, []);
+
+  if (isLoading) {
+    return (
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div
+            key="preloader"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center justify-center h-screen bg-gray-900"
+          >
+            <motion.div
+              animate={{
+                scale: [1, 1.2, 1, 1.2, 1],
+                opacity: [0.5, 1, 0.5, 1, 0.5],
+              }}
+              transition={{
+                duration: 1.5,
+                ease: "easeInOut",
+                repeat: Infinity,
+              }}
+              className="w-8 h-8 bg-blue-500 rounded-full"
+            ></motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    );
+  }
 
   return (
-    <>
-      <div
-        className={`${
-          modalOpen ? "" : "hidden"
-        } absolute z-10 flex justify-center items-center w-full h-screen`}
+    <AnimatePresence mode="wait">
+      <motion.div
+        key="main-content"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.2 }} // Delay ensures preloader exit animation completes
       >
-        <div className="p-20 bg-white rounded-xl shadow-lg flex justify-center items-center flex-col gap-3">
-          <input
-            placeholder="Enter Your Name"
-            onChange={handleChange}
-            value={value}
-            className="border-2 border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:border-blue-500 shadow-md hover:shadow-lg transition duration-300 ease-in-out"
-          />
-          <button
-            onClick={handleSubmitClick}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-md hover:shadow-lg transition duration-300 ease-in-out"
-          >
-            Submit
-          </button>
-        </div>
-      </div>
-      <main
-        className={`flex items-center justify-center h-screen flex-col w-full ${
-          modalOpen ? "blur bg-slate-200" : ""
-        }`}
-      >
-        {view && (
-          <>
-            <Image src={kiss_bear} alt="bear-kiss" height={400} width={400} />
-            <span className="font-semibold">
-              mas te vale! por que yo te amare para siempre!
-            </span>
-          </>
-        )}
-        {!view && (
-          <div className="flex items-center justify-center flex-col">
-            <Image
-              src={happy_bear}
-              alt="bear-kiss"
-              height={200}
-              width={200}
-              className=""
-            />
-            <motion.span
-              animate={{ scale: 1.0 + scale * 0.3 }}
-              className="text-center w-full"
-            >
-              Me amas Day?
-            </motion.span>
-            <div className="flex flex-row items-center">
-              <Button
-                text="Yes"
-                color="green"
-                scale={scale}
-                onClick={handleShow}
-                className="bg-green-500 hover:bg-green-700"
-              />
-              <Button
-                text={requestArr[reqIndex]}
-                color="red"
-                scale={1.0}
-                onClick={handleIncrease}
-                className="bg-red-500 hover:bg-red-700"
-              />
-            </div>
-          </div>
-        )}
-      </main>
-    </>
+        <HeroSection />
+        <NovedadesSection />
+        <OfertasSection />
+        <BusquedaFiltrosSection />
+        <ComunidadSection />
+      </motion.div>
+    </AnimatePresence>
   );
-};
-
-export default Page;
-
-const requestArr = [
-  "No",
-  "Really Not?",
-  "Think Again",
-  "Last Chance!",
-  "Surely Not!",
-  "You might Regret this!",
-  "Give another thought!",
-  "Why you deny such a charming request?",
-  "I promise it'll be worth it!",
-  "You're missing out on something special!",
-  "Life's too short to say no!",
-  "I'll make it worth your while!",
-  "Indulge in a little spontaneity!",
-  "You won't regret saying yes!",
-  "Just say yes and see what happens!",
-  "You're too irresistible to say no to!",
-  "I've got a good feeling about this!",
-  "Join me for an adventure!",
-  "You're too tempting to resist!",
-  "Saying yes never felt so right!",
-  "Take a chance, say yes!",
-  "Let's create some magic together!",
-  "I'll make sure you won't regret it!",
-  "You'll thank yourself for saying yes!",
-  "Trust me, it'll be amazing!",
-  "Don't let this opportunity slip away!",
-  "Let's turn this moment into something special!",
-  "Life's an adventure, let's embrace it!",
-  "Let's make a memory you'll never forget!",
-  "You won't regret giving in to temptation!",
-  "Just say yes and let's make it happen!",
-  "You won't want to miss out on this!",
-  "I'll make it worth your while, I promise!",
-  "You're too charming to resist!",
-  "Take my hand and let's do this together!",
-  "Let's create some sparks!",
-  "Let's make a story worth telling!",
-  "Say yes and let's make magic happen!",
-  "Why resist such a tempting offer?",
-];
+}
