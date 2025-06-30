@@ -1,3 +1,360 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Importar fuentes modernas */
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Esquema de color cyberpunk/gaming moderno */
+  --color-primary: 111, 76, 255;         /* Púrpura neón */
+  --color-primary-light: 147, 112, 255;  /* Púrpura neón claro */
+  --color-secondary: 0, 225, 255;        /* Cian eléctrico */
+  --color-secondary-light: 72, 249, 255; /* Cian eléctrico claro */
+  --color-accent: 255, 71, 87;           /* Rojo coral */
+  --color-accent-alt: 255, 214, 0;       /* Amarillo eléctrico */
+  
+  /* Fondos oscuros con variaciones */
+  --color-background: 13, 13, 18;        /* Negro azulado oscuro */
+  --color-card: 22, 22, 30;              /* Negro azulado */
+  --color-card-hover: 32, 32, 45;        /* Negro azulado claro */
+  
+  /* Textos */
+  --color-text: 255, 255, 255;           /* Blanco */
+  --color-text-secondary: 190, 190, 210; /* Gris azulado claro */
+  --color-text-muted: 130, 130, 160;     /* Gris azulado */
+  
+  /* Sombras y efectos */
+  --glow-primary: 0 0 15px rgba(var(--color-primary), 0.7);
+  --glow-secondary: 0 0 15px rgba(var(--color-secondary), 0.7);
+  --glow-accent: 0 0 15px rgba(var(--color-accent), 0.7);
+}
+
+/* Estilos base */
+body {
+  color: rgb(var(--color-text));
+  background-color: rgb(var(--color-background));
+  font-family: 'Exo 2', sans-serif;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 25% 10%, rgba(var(--color-primary), 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(var(--color-secondary), 0.05) 0%, transparent 50%);
+}
+
+/* Fuentes personalizadas */
+h1, h2, h3, .font-display {
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+/* Clases de utilidad personalizadas */
+@layer components {
+  /* Fondos y tarjetas */
+  .bg-glass {
+    @apply bg-black/70 backdrop-blur-md border border-white/10;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card {
+    @apply bg-card rounded-xl shadow-lg border border-white/5 overflow-hidden transition-all duration-300;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-highlight {
+    @apply bg-card hover:bg-card-hover border border-white/10 transition-all duration-300;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Botones */
+  .btn {
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-300 inline-block;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+  .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: all 0.6s;
+    z-index: -1;
+  }
+  
+  .btn:hover::before {
+    left: 100%;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-white;
+    box-shadow: 0 4px 15px rgba(var(--color-primary), 0.3);
+  }
+  
+  .btn-primary:hover {
+    @apply bg-primary-light;
+    box-shadow: 0 6px 20px rgba(var(--color-primary), 0.5);
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-gray-900 font-semibold;
+    box-shadow: 0 4px 15px rgba(var(--color-secondary), 0.3);
+  }
+  
+  .btn-secondary:hover {
+    @apply bg-secondary-light;
+    box-shadow: 0 6px 20px rgba(var(--color-secondary), 0.5);
+  }
+  
+  .btn-outline {
+    @apply border border-white/20 text-white;
+    backdrop-filter: blur(4px);
+  }
+  
+  .btn-outline:hover {
+    @apply bg-white/10 border-white/30;
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Efectos de texto */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(90deg, rgb(var(--color-primary)), rgb(var(--color-secondary)));
+  }
+  
+  .text-gradient-alt {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(90deg, rgb(var(--color-accent)), rgb(var(--color-accent-alt)));
+  }
+  
+  /* Efectos de brillo */
+  .shadow-glow {
+    box-shadow: var(--glow-primary);
+  }
+  
+  .shadow-glow-secondary {
+    box-shadow: var(--glow-secondary);
+  }
+  
+  .shadow-glow-accent {
+    box-shadow: var(--glow-accent);
+  }
+  
+  .hover-glow:hover {
+    box-shadow: var(--glow-primary);
+  }
+  
+  .hover-glow-secondary:hover {
+    box-shadow: var(--glow-secondary);
+  }
+  
+  .hover-glow-accent:hover {
+    box-shadow: var(--glow-accent);
+  }
+  
+  /* Efectos de escala */
+  .hover-scale {
+    @apply transition-transform duration-300;
+  }
+  
+  .hover-scale:hover {
+    transform: scale(1.03);
+  }
+  
+  /* Enlaces animados */
+  .animated-link {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .animated-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: rgb(var(--color-secondary));
+    transition: width 0.3s ease;
+  }
+  
+  .animated-link:hover::after {
+    width: 100%;
+  }
+  
+  /* Efecto de pulso */
+  .pulse {
+    animation: pulse 2s infinite;
+  }
+}
+
+/* Animaciones */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--color-accent), 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(var(--color-accent), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--color-accent), 0);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes glow {
+  0% {
+    filter: drop-shadow(0 0 5px rgba(var(--color-primary), 0.7));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(var(--color-primary), 0.9));
+  }
+  100% {
+    filter: drop-shadow(0 0 5px rgba(var(--color-primary), 0.7));
+  }
+}
+
+@keyframes slowZoom {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Partículas y efectos de fondo */
+.particle {
+  position: absolute;
+  background: rgba(var(--color-primary), 0.3);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Efecto de líneas de cuadrícula */
+.grid-lines {
+  position: absolute;
+  inset: 0;
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(var(--color-primary), 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(var(--color-primary), 0.05) 1px, transparent 1px);
+  z-index: 0;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(var(--color-background), 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(var(--color-primary), 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--color-primary), 0.8);
+}
+
+/* Efectos de selección de texto */
+::selection {
+  background: rgba(var(--color-primary), 0.3);
+  color: rgb(var(--color-text));
+}
+
+/* Mejoras de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Modo de alto contraste */
+@media (prefers-contrast: high) {
+  :root {
+    --color-primary: 100, 50, 255;
+    --color-secondary: 0, 200, 255;
+    --color-accent: 255, 50, 50;
+  }
+  
+  .text-gradient, .text-gradient-alt {
+    background-image: none;
+    color: white;
+  }
+}
+
+/* Estilos para GSAP ScrollSmoother */
+html.has-scroll-smooth {
+  overflow: hidden;
+}
+
+html.has-scroll-dragging {
+  user-select: none;
+}
+
+.smooth-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.smooth-content {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* Clases para efectos de velocidad */
+[data-speed="0.8"] {
+  transition: none !important;
+}
+
+[data-speed="1.2"] {
+  transition: none !important;
+}
+
+/* Estilos para transiciones de página */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 400ms, transform 400ms;
+}
+
+.page-transition-exit {
+  opacity: 1;
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}

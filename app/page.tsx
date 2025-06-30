@@ -1,80 +1,52 @@
-"use client"; // Required for useState and useEffect
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion'; // Import framer-motion
+import React, { useEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HeroSection from './components/HeroSection';
 import NovedadesSection from './components/NovedadesSection';
 import OfertasSection from './components/OfertasSection';
 import BusquedaFiltrosSection from './components/BusquedaFiltrosSection';
-// import ComunidadSection from './components/ComunidadSection'; // Original static import
-import dynamic from 'next/dynamic'; // Import dynamic
+import ComunidadSection from './components/ComunidadSection';
 
-// Dynamically import ComunidadSection
-const ComunidadSectionDynamic = dynamic(() => import('./components/ComunidadSection'), {
-  ssr: false, // Optional: disable server-side rendering for this component if it's client-heavy
-  loading: () => (
-    <div className="flex items-center justify-center h-64 bg-gray-800 text-white">
-      <p className="text-xl">Cargando Comunidad...</p>
-    </div>
-  ),
-});
-
-export default function Page() {
-  const [isLoading, setIsLoading] = useState(true);
-
+const HomePage = () => {
   useEffect(() => {
-    // Simulate loading time
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500); // 1.5 seconds
+    // Registrar ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Animaciones con GSAP
+    const ctx = gsap.context(() => {
+      gsap.from('.fade-in', {
+        opacity: 0,
+        y: 30,
+        stagger: 0.2,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.fade-in',
+          start: 'top 80%',
+        }
+      });
+    });
 
-    return () => clearTimeout(timer); // Cleanup timer
+    return () => ctx.revert(); // Limpieza
   }, []);
 
-  if (isLoading) {
-    return (
-      <AnimatePresence>
-        {isLoading && (
-          <motion.div
-            key="preloader"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex items-center justify-center h-screen bg-gray-900"
-          >
-            <motion.div
-              animate={{
-                scale: [1, 1.2, 1, 1.2, 1],
-                opacity: [0.5, 1, 0.5, 1, 0.5],
-              }}
-              transition={{
-                duration: 1.5,
-                ease: "easeInOut",
-                repeat: Infinity,
-              }}
-              className="w-8 h-8 bg-blue-500 rounded-full"
-            ></motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    );
-  }
-
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key="main-content"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.2 }} // Delay ensures preloader exit animation completes
-      >
-        <HeroSection />
+    <div className="home-page">
+      <HeroSection />
+      <div className="fade-in">
         <NovedadesSection />
+      </div>
+      <div className="fade-in">
         <OfertasSection />
-        <BusquedaFiltrosSection />
+      </div>
+      
+      <div className="fade-in">
         <ComunidadSection />
-      </motion.div>
-    </AnimatePresence>
+      </div>
+    </div>
   );
-}
+};
+
+export default HomePage;
