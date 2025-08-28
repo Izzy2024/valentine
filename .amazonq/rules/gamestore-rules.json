@@ -1,0 +1,68 @@
+{
+  "name": "GameStore Development Rules",
+  "description": "Reglas para el desarrollo de la tienda de videojuegos GameStore",
+  "rules": [
+    {
+      "name": "Estética Gaming",
+      "description": "Mantener la estética gaming cyberpunk/neón en todos los componentes y páginas."
+    },
+    {
+      "name": "React Best Practices",
+      "description": "Usar siempre className en lugar de class. Validar props en todos los componentes."
+    },
+    {
+      "name": "Optimización de Rendimiento",
+      "description": "Optimizar animaciones y efectos visuales. Evitar re-renderizados innecesarios."
+    },
+    {
+      "name": "Hidratación Consistente",
+      "description": "No usar Math.random() o Date.now() directamente en el renderizado para evitar errores de hidratación."
+    },
+    {
+      "name": "Accesibilidad",
+      "description": "Asegurar que todos los elementos interactivos tengan etiquetas ARIA apropiadas."
+    },
+    {
+      "name": "Diseño Responsivo",
+      "description": "Todos los componentes deben funcionar correctamente en móviles, tablets y escritorio."
+    },
+    {
+      "name": "Consistencia de Componentes",
+      "description": "Seguir los patrones de diseño establecidos para botones, tarjetas y otros elementos UI."
+    },
+    {
+      "name": "Next.js Best Practices",
+      "description": "Aprovechar las características de Next.js como rutas dinámicas y carga de imágenes optimizada."
+    },
+    {
+      "name": "Documentación",
+      "description": "Documentar código complejo, especialmente animaciones y lógica de negocio."
+    },
+    {
+      "name": "Esquema de Colores",
+      "description": "Usar las variables CSS definidas en globals.css para mantener consistencia en colores."
+    }
+  ],
+  "examples": [
+    {
+      "rule": "Estética Gaming",
+      "good": "Usar gradientes neón, efectos de brillo y animaciones sutiles para botones y tarjetas.",
+      "bad": "Implementar diseños minimalistas o corporativos que no reflejen la temática gaming."
+    },
+    {
+      "rule": "React Best Practices",
+      "good": "<button className=\"btn btn-primary\">Comprar</button>",
+      "bad": "<button class=\"btn btn-primary\">Comprar</button>"
+    },
+    {
+      "rule": "Hidratación Consistente",
+      "good": "const [randomValue, setRandomValue] = useState(() => Math.random());",
+      "bad": "const randomValue = Math.random(); // Directamente en el componente"
+    },
+    {
+      "rule": "Esquema de Colores",
+      "good": "className=\"text-primary hover:text-primary-light\"",
+      "bad": "style={{color: '#7D26CD', hoverColor: '#8A2BE2'}}"
+    }
+  ]
+}

@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# GameStore - Tienda de Videojuegos
 
-## Getting Started
+![GameStore Logo](https://via.placeholder.com/200x80/111122/6C63FF?text=GameStore)
 
-First, run the development server:
+Una moderna tienda de videojuegos online con diseño cyberpunk/neón, desarrollada con Next.js, React, Tailwind CSS, Framer Motion y GSAP.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 📋 Características
+
+- **Diseño Moderno**: Interfaz de usuario con estética gaming cyberpunk/neón
+- **Animaciones Fluidas**: Transiciones y efectos visuales con Framer Motion y GSAP
+- **Scroll Suave**: Implementación de GSAP ScrollSmoother
+- **Totalmente Responsivo**: Diseño adaptable a móviles, tablets y escritorio
+- **Catálogo de Juegos**: Filtrado y búsqueda de juegos por plataforma, género y precio
+- **Carrito de Compras**: Funcionalidad básica de carrito de compras
+- **Cuenta de Usuario**: Perfil de usuario con historial de pedidos
+
+## 🚀 Tecnologías
+
+- **Frontend**: Next.js 14, React 18
+- **Estilos**: Tailwind CSS
+- **Animaciones**: Framer Motion, GSAP
+- **Iconos**: SVG personalizados
+- **Fuentes**: Orbitron, Exo 2
+
+## 🛠️ Estructura del Proyecto
+
+```
+valentine-1/
+├── .amazonq/              # Reglas para Amazon Q
+├── app/                   # Código principal de la aplicación
+│   ├── components/        # Componentes reutilizables
+│   ├── data/              # Datos de muestra
+│   ├── pages/             # Páginas adicionales
+│   ├── catalogo/          # Ruta de catálogo
+│   ├── globals.css        # Estilos globales
+│   ├── layout.tsx         # Layout principal
+│   └── page.tsx           # Página principal
+├── public/                # Archivos estáticos
+└── tailwind.config.ts     # Configuración de Tailwind
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📦 Componentes Principales
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Navbar**: Barra de navegación con menú responsive
+- **HeroSection**: Sección principal con carrusel de destacados
+- **GameCard**: Tarjeta para mostrar juegos
+- **OfertaCard**: Tarjeta para mostrar ofertas con countdown
+- **Dropdown**: Componente de menú desplegable
+- **AnimatedBackground**: Fondo animado con partículas
+- **ScrollSmootherWrapper**: Implementación de scroll suave
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 🎨 Esquema de Colores
 
-## Learn More
+- **Primario**: Púrpura neón (#6C4CFF)
+- **Secundario**: Cian eléctrico (#00E1FF)
+- **Acento**: Rojo coral (#FF4757)
+- **Acento Alt**: Amarillo eléctrico (#FFD600)
+- **Fondo**: Negro azulado oscuro (#0D0D12)
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 Cómo Empezar
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Clonar el repositorio**:
+   ```bash
+   git clone <url-del-repositorio>
+   cd valentine-1
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+2. **Instalar dependencias**:
+   ```bash
+   npm install
+   ```
 
-## Deploy on Vercel
+3. **Ejecutar en desarrollo**:
+   ```bash
+   npm run dev
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. **Abrir en el navegador**:
+   [http://localhost:3000](http://localhost:3000)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 📝 Reglas de Desarrollo
+
+- Mantener la estética gaming cyberpunk/neón
+- Usar `className` en lugar de `class` en componentes React
+- Validar props en todos los componentes
+- Evitar problemas de hidratación (no usar Math.random() directamente en el renderizado)
+- Seguir los patrones de diseño establecidos para componentes UI
+- Documentar código complejo
+
+## 📱 Capturas de Pantalla
+
+*(Aquí irían capturas de pantalla de las principales secciones)*
+
+## 🔮 Próximas Características
+
+- Integración con backend para autenticación
+- Sistema de reseñas de juegos
+- Wishlist personalizada
+- Recomendaciones basadas en preferencias
+- Modo oscuro/claro
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
